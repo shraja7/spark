@@ -91,4 +91,21 @@ router.put("/:id", (req, res) => {
   });
 });
 
+//delete an idea
+router.delete("/:id", (req, res) => {
+  //find idea id to delete
+  const idea = ideas.find((idea) => idea.id === +req.params.id);
+  if (!idea) {
+    return res
+      .status(404)
+      .json({ success: false, message: `No idea with id ${req.params.id}` });
+  }
+
+  //remove idea from ideas array
+  const index = ideas.indexOf(idea);
+  ideas.splice(index, 1);
+
+  res.json({ success: true, data: {} });
+});
+
 module.exports = router;
