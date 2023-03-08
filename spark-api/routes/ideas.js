@@ -3,38 +3,6 @@ const router = express.Router();
 
 const Idea = require("../models/Idea");
 
-//array of ideas
-const ideas = [
-  {
-    id: 1,
-    text: "idea 1",
-    tag: "Technology",
-    username: "TonyStart",
-    date: "2020-01-01",
-  },
-  {
-    id: 2,
-    text: "idea 2",
-    tag: "Inventions",
-    username: "TonyStop",
-    date: "2020-01-02",
-  },
-  {
-    id: 3,
-    text: "idea 3",
-    tag: "Technology",
-    username: "TonyFinished",
-    date: "2020-01-03",
-  },
-  {
-    id: 4,
-    text: "idea 4",
-    tag: "Software",
-    username: "SteveRogers",
-    date: "2020-01-04",
-  },
-];
-
 //get all ideas
 router.get("/", async (req, res) => {
   try {
@@ -97,20 +65,14 @@ router.put("/:id", async (req, res) => {
 });
 
 //delete an idea
-router.delete("/:id", (req, res) => {
-  //find idea id to delete
-  const idea = ideas.find((idea) => idea.id === +req.params.id);
-  if (!idea) {
-    return res
-      .status(404)
-      .json({ success: false, message: `No idea with id ${req.params.id}` });
+router.delete("/:id", async (req, res) => {
+  try {
+    await Idea.findByIdAndDelete(req.params.id);
+    res.json({ success: true, data: {} });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, error: "something went wrong" });
   }
-
-  //remove idea from ideas array
-  const index = ideas.indexOf(idea);
-  ideas.splice(index, 1);
-
-  res.json({ success: true, data: {} });
 });
 
 module.exports = router;
