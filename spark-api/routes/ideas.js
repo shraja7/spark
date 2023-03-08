@@ -69,4 +69,26 @@ router.post("/", (req, res) => {
   });
 });
 
+//update and idea
+router.put("/:id", (req, res) => {
+  //find idea to update based on id
+  const idea = ideas.find((idea) => idea.id === +req.params.id);
+  //if no id found
+  if (!idea) {
+    return res
+      .status(404)
+      .json({ success: false, message: `No idea with id ${req.params.id}` });
+  }
+  //update the idea based on requested id
+  //update text and tag
+  idea.text = req.body.text || idea.text;
+  idea.tag = req.body.text || idea.tag;
+
+  //return updated idea
+  res.json({
+    success: true,
+    data: idea,
+  });
+});
+
 module.exports = router;
