@@ -1,3 +1,5 @@
+import IdeasApi from "../services/ideasApi";
+
 class IdeaForm {
   constructor() {
     //select modal
@@ -7,7 +9,7 @@ class IdeaForm {
   addEventListeners() {
     this._form.addEventListener("submit", this.handleSubmit.bind(this));
   }
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
 
     const idea = {
@@ -17,7 +19,7 @@ class IdeaForm {
     };
     //clear fields
 
-    console.log(idea);
+    const newIdea = await IdeasApi.createIdea(idea);
 
     //clear fields
     this._form.elements.text.value = "";

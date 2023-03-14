@@ -5,9 +5,10 @@ import IdeaList from "./components/IdeaList";
 import "./css/style.css";
 
 //instantiate modal
-const modal = new Modal();
+new Modal();
 const ideadForm = new IdeaForm();
-const ideaList = new IdeaList();
+// const ideaList = new IdeaList();
+new IdeaList();
 
 ideadForm.render();
-ideaList.render();
+// ideaList.render();
