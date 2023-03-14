@@ -9,6 +9,9 @@ class Modal {
   addEventListeners() {
     this._modalBtn.addEventListener("click", this.open.bind(this));
     window.addEventListener("click", this.outsideClick.bind(this));
+
+    //cusotm event listener from idea form for closing modal
+    document.addEventListener("closemodal", this.close.bind(this));
   }
 
   //functions
